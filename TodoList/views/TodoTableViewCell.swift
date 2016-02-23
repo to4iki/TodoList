@@ -8,13 +8,16 @@
 
 import UIKit
 
+/// View
 final class TodoTableViewCell: UITableViewCell {
     
     static let NibName = "TodoTableViewCell"
     
     static let CellIdentifier = "TodoCell"
     
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var name: UILabel!
+    
+    @IBOutlet weak var createdAt: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,7 +34,8 @@ final class TodoTableViewCell: UITableViewCell {
 
 extension TodoTableViewCell {
     
-    func setup(index: Int) {
-        label.text = "index: \(index)"
+    func setup(src: TodoDataSource.Dto) {
+        name.text = src.name
+        createdAt.text = src.createdAt.description
     }
 }

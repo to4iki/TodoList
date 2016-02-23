@@ -7,17 +7,23 @@
 //
 
 import UIKit
+import RealmSwift
 
 /// Todo List
 final class TodoListViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     
+    private var todos: Results<Todo>?
+    
     private lazy var viewModel = TodoDataSource()
+    
+    private lazy var todoRepository = TodoRepository.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadTodo()
         setup()
     }
 }
@@ -34,5 +40,14 @@ extension TodoListViewController {
 // MARK: - UITableViewDelegate
 
 extension TodoListViewController: UITableViewDelegate {
+}
+
+// MARK: - I/O
+
+extension TodoListViewController {
     
+    private func loadTodo() {
+        todos = todoRepository?.read()
+        viewModel.setup(todos)
+    }
 }

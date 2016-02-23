@@ -7,30 +7,50 @@
 //
 
 import UIKit
+import RealmSwift
 
-/// ViewModel
+/// View Model
 final class TodoDataSource: NSObject {
+    
+    private var dtos: [Dto]? =  nil
+    
+    func setup(todos: Results<Todo>?) {
+        guard let todos = todos else { return }
+        dtos = todos.map(Dto.fromTodo)
+    }
 }
+
+// MARK: - UITableViewDataSource
 
 extension TodoDataSource: UITableViewDataSource {
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return dtos?.count ?? 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(TodoTableViewCell.CellIdentifier, forIndexPath: indexPath)
         
-        guard let todoCell = cell as? TodoTableViewCell else {
+        guard let todoCell = cell as? TodoTableViewCell, daos = dtos else {
             return cell
         }
         
-        todoCell.setup(indexPath.row)
+        todoCell.setup(daos[indexPath.row])
         
         return todoCell
+    }
+}
+
+// MARK: - Data Transfer Object
+
+extension TodoDataSource {
+    
+    struct Dto {
+        let name: String
+        let createdAt: NSDate
+        
+        static func fromTodo(todo: Todo) -> Dto {
+            return Dto(name: todo.name, createdAt: todo.createdAt)
+        }
     }
 }

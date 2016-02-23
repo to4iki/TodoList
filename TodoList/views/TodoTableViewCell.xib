@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TodoTableViewCell" customModule="TodoList" customModuleProvider="target"/>
@@ -11,23 +12,38 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lhx-Eo-z8B">
-                        <rect key="frame" x="139" y="11.5" width="42" height="20.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lhx-Eo-z8B">
+                        <rect key="frame" x="8" y="14" width="36" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cretedAt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Jw-II-SCN">
+                        <rect key="frame" x="265" y="14" width="55" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Lhx-Eo-z8B" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="O2J-qs-1dy"/>
+                    <constraint firstAttribute="trailing" secondItem="6Jw-II-SCN" secondAttribute="trailing" id="VsF-qx-OiE"/>
                     <constraint firstItem="Lhx-Eo-z8B" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Xvb-io-zeL"/>
+                    <constraint firstItem="6Jw-II-SCN" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="nvp-dB-cfX"/>
                     <constraint firstItem="Lhx-Eo-z8B" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="xe1-kK-hQk"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="xe1-kK-hQk"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
-                <outlet property="label" destination="Lhx-Eo-z8B" id="w0r-Ut-lMi"/>
+                <outlet property="createdAt" destination="6Jw-II-SCN" id="WWD-QJ-4CL"/>
+                <outlet property="name" destination="Lhx-Eo-z8B" id="V7g-iR-O3T"/>
             </connections>
         </tableViewCell>
     </objects>

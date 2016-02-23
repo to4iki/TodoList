@@ -21,6 +21,8 @@
 		1EEE7AAA1C7C95B400245A93 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1EEE7AA71C7C95B300245A93 /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1EEE7AAB1C7C95B400245A93 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EEE7AA81C7C95B300245A93 /* RealmSwift.framework */; };
 		1EEE7AAC1C7C95B400245A93 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1EEE7AA81C7C95B300245A93 /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1EEE7AB41C7C98B800245A93 /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EEE7AB31C7C98B800245A93 /* Todo.swift */; };
+		1EEE7ABC1C7C9E0C00245A93 /* RealmSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EEE7ABB1C7C9E0C00245A93 /* RealmSet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -53,6 +55,8 @@
 		1EAB1E231C7B5A7500BEB4A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EEE7AA71C7C95B300245A93 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		1EEE7AA81C7C95B300245A93 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		1EEE7AB31C7C98B800245A93 /* Todo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Todo.swift; sourceTree = "<group>"; };
+		1EEE7ABB1C7C9E0C00245A93 /* RealmSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmSet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,8 +85,8 @@
 			children = (
 				1EAB1E1B1C7B5A7500BEB4A3 /* Main.storyboard */,
 				1E7720371C7B61D00045518D /* TodoList.storyboard */,
-				1E77203C1C7B6A3D0045518D /* TodoTableViewCell.swift */,
 				1E77203D1C7B6A3D0045518D /* TodoTableViewCell.xib */,
+				1E77203C1C7B6A3D0045518D /* TodoTableViewCell.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -117,15 +121,33 @@
 		1EAB1E161C7B5A7500BEB4A3 /* TodoList */ = {
 			isa = PBXGroup;
 			children = (
+				1E7B81641C7B610D0083791E /* views */,
 				1E7B81651C7B61110083791E /* controllers */,
 				1E7720391C7B65D60045518D /* viewModels */,
-				1E7B81641C7B610D0083791E /* views */,
+				1EEE7AB21C7C98B800245A93 /* models */,
+				1EEE7ABA1C7C9E0C00245A93 /* libs */,
 				1EAB1E171C7B5A7500BEB4A3 /* AppDelegate.swift */,
 				1EAB1E1E1C7B5A7500BEB4A3 /* Assets.xcassets */,
 				1EAB1E231C7B5A7500BEB4A3 /* Info.plist */,
 				1EAB1E201C7B5A7500BEB4A3 /* LaunchScreen.storyboard */,
 			);
 			path = TodoList;
+			sourceTree = "<group>";
+		};
+		1EEE7AB21C7C98B800245A93 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				1EEE7AB31C7C98B800245A93 /* Todo.swift */,
+			);
+			path = models;
+			sourceTree = "<group>";
+		};
+		1EEE7ABA1C7C9E0C00245A93 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				1EEE7ABB1C7C9E0C00245A93 /* RealmSet.swift */,
+			);
+			path = libs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,11 +244,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EEE7AB41C7C98B800245A93 /* Todo.swift in Sources */,
 				1E77203B1C7B66CB0045518D /* TodoDataSource.swift in Sources */,
 				1E7B81621C7B60710083791E /* TodoListViewController.swift in Sources */,
 				1EAB1E1A1C7B5A7500BEB4A3 /* MainViewController.swift in Sources */,
 				1E77203E1C7B6A3D0045518D /* TodoTableViewCell.swift in Sources */,
 				1EAB1E181C7B5A7500BEB4A3 /* AppDelegate.swift in Sources */,
+				1EEE7ABC1C7C9E0C00245A93 /* RealmSet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

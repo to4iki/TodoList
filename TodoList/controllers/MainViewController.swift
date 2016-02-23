@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import RealmSwift
 
 /// Todo Create
 final class MainViewController: UIViewController {
     
     @IBOutlet weak var textField: UITextField!
+    
+    private lazy var todoRepository = TodoRepository.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,15 +28,34 @@ final class MainViewController: UIViewController {
             return
         }
         
-        print(text)
+        addTodo(text)
+        
+        clearTextField()
     }
 }
 
 extension MainViewController {
     
     private func autoFocus() {
-        if textField.resignFirstResponder() {
-            textField.becomeFirstResponder()
+        textField.becomeFirstResponder()
+    }
+    
+    private func clearTextField() {
+        textField.text = ""
+    }
+}
+
+// MARK: - I/O
+
+extension MainViewController {
+    
+    private func addTodo(text: String) {
+        let todo = TodoFactory.instance(text)
+        
+        do {
+            try todoRepository?.add(todo)
+        } catch {
+            print("failure add todo.")
         }
     }
 }
