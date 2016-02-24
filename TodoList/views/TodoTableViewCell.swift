@@ -36,6 +36,6 @@ extension TodoTableViewCell {
     
     func setup(src: TodoDataSource.Dto) {
         name.text = src.name
-        createdAt.text = src.createdAt.description
+        createdAt.text = src.createdAt
     }
 }

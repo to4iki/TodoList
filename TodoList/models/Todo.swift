@@ -51,4 +51,10 @@ struct TodoRepository {
             realm.add(todo)
         }
     }
+    
+    func delete(todo: Todo) throws {
+        try realm.write {
+            realm.delete(todo)
+        }
+    }
 }

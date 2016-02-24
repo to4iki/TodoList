@@ -14,9 +14,23 @@ final class TodoDataSource: NSObject {
     
     private var dtos: [Dto]? =  nil
     
+    private lazy var dateFormatter: NSDateFormatter = {
+        let formatter = NSDateFormatter()
+        formatter.timeStyle = .LongStyle
+        formatter.dateStyle = .ShortStyle
+        formatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+        return formatter
+    }()
+    
     func setup(todos: Results<Todo>?) {
         guard let todos = todos else { return }
-        dtos = todos.map(Dto.fromTodo)
+        dtos = todos.map { (todo: Todo) -> Dto in
+            Dto(name: todo.name, createdAt: dateFormatter.stringFromDate(todo.createdAt))
+        }
+    }
+    
+    func removeData(index: Int) {
+        dtos?.removeAtIndex(index)
     }
 }
 
@@ -31,11 +45,11 @@ extension TodoDataSource: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier(TodoTableViewCell.CellIdentifier, forIndexPath: indexPath)
         
-        guard let todoCell = cell as? TodoTableViewCell, daos = dtos else {
+        guard let todoCell = cell as? TodoTableViewCell, dtos = dtos else {
             return cell
         }
         
-        todoCell.setup(daos[indexPath.row])
+        todoCell.setup(dtos[indexPath.row])
         
         return todoCell
     }
@@ -47,10 +61,6 @@ extension TodoDataSource {
     
     struct Dto {
         let name: String
-        let createdAt: NSDate
-        
-        static func fromTodo(todo: Todo) -> Dto {
-            return Dto(name: todo.name, createdAt: todo.createdAt)
-        }
+        let createdAt: String
     }
 }

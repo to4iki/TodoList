@@ -23,7 +23,7 @@ final class TodoListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadTodo()
+        loadTodos()
         setup()
     }
 }
@@ -40,14 +40,34 @@ extension TodoListViewController {
 // MARK: - UITableViewDelegate
 
 extension TodoListViewController: UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .Default, title: "Delete", handler: { (action, indexPath) -> Void in
+            self.viewModel.removeData(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
+            
+            guard let todo = self.todos?[indexPath.row] else { return }
+            self.deleteTodo(todo)
+        })
+        
+        return [deleteAction]
+    }
 }
 
 // MARK: - I/O
 
 extension TodoListViewController {
     
-    private func loadTodo() {
-        todos = todoRepository?.read()
+    private func loadTodos() {
+        todos = todoRepository.read()
         viewModel.setup(todos)
+    }
+    
+    private func deleteTodo(todo: Todo) {
+        do {
+            try todoRepository.delete(todo)
+        } catch {
+            print("failure delete todo")
+        }
     }
 }
