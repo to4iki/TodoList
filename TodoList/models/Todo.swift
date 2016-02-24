@@ -36,13 +36,7 @@ struct TodoRepository {
     
     private let realm: Realm
     
-    static var sharedInstance: TodoRepository? {
-        guard let realm = try? RealmSet.inMemory() else {
-            print("failure realm setup.")
-            return nil
-        }
-        return TodoRepository(realm: realm)
-    }
+    static let sharedInstance = TodoRepository(realm: try! RealmSet.inMemory())
     
     private init(realm: Realm) {
         self.realm = realm

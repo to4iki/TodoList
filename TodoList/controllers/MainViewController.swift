@@ -12,7 +12,11 @@ import RealmSwift
 /// Todo Create
 final class MainViewController: UIViewController {
     
-    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var textView: UITextView! {
+        didSet {
+            autoFocus()
+        }
+    }
     
     private lazy var todoRepository = TodoRepository.sharedInstance
     
@@ -23,25 +27,25 @@ final class MainViewController: UIViewController {
     }
     
     @IBAction func onAddButton(sender: UIButton) {
-        guard let text = textField.text where text != "" else {
+        guard let text = textView.text where text != "" else {
             print("text is empty.")
             return
         }
         
         addTodo(text)
         
-        clearTextField()
+        clearTextView()
     }
 }
 
 extension MainViewController {
     
     private func autoFocus() {
-        textField.becomeFirstResponder()
+        textView.becomeFirstResponder()
     }
     
-    private func clearTextField() {
-        textField.text = ""
+    private func clearTextView() {
+        textView.text = ""
     }
 }
 
@@ -53,7 +57,7 @@ extension MainViewController {
         let todo = TodoFactory.instance(text)
         
         do {
-            try todoRepository?.add(todo)
+            try todoRepository.add(todo)
         } catch {
             print("failure add todo.")
         }
