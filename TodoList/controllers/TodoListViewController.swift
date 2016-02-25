@@ -32,8 +32,12 @@ extension TodoListViewController {
     
     private func setup() {
         tableView.registerNib(TodoTableViewCell.nib(), forCellReuseIdentifier: TodoTableViewCell.CellIdentifier)
+        
         tableView.delegate = self
         tableView.dataSource = viewModel
+        
+        tableView.estimatedRowHeight = 44
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
 }
 
