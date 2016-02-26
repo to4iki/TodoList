@@ -19,6 +19,7 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
+UserInterfaceState.xcuserstate
 
 # CocoaPods
 #
@@ -37,3 +38,4 @@ Carthage/Build
 
 # MacOS
 .DS_Store
+*.swp
