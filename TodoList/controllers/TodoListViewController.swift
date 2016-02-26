@@ -38,8 +38,21 @@ extension TodoListViewController {
         tableView.delegate = self
         tableView.dataSource = viewModel
         
+        configureDynamicCellSizing()
+        hideSeparator()
+    }
+    
+    private func configureDynamicCellSizing() {
         tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableViewAutomaticDimension
+    }
+    
+    // http://stackoverflow.com/questions/1633966/can-i-force-a-uitableview-to-hide-the-separator-between-empty-cells
+    private func hideSeparator() {
+        let view = UIView(frame: CGRectZero)
+        view.backgroundColor = UIColor.clearColor()
+        tableView.tableHeaderView = view
+        tableView.tableFooterView = view
     }
     
     @IBAction func onCloseButton(sender: UIButton) {
