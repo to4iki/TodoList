@@ -14,6 +14,8 @@ final class TodoListViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     
+    var closeCompletionHandler: (() -> Void)?
+    
     private var todos: Results<Todo>?
     
     private lazy var viewModel = TodoDataSource()
@@ -38,6 +40,10 @@ extension TodoListViewController {
         
         tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableViewAutomaticDimension
+    }
+    
+    @IBAction func onCloseButton(sender: UIButton) {
+        dismissViewControllerAnimated(true, completion: closeCompletionHandler)
     }
 }
 

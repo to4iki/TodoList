@@ -47,6 +47,20 @@ extension MainViewController {
     }
 }
 
+// MARK: - Segue
+
+extension MainViewController {
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        guard let todoListViewController = segue.destinationViewController.childViewControllers.first as? TodoListViewController
+            where segue.identifier == "TodoListSegue" else { fatalError() }
+        
+        todoListViewController.closeCompletionHandler = {
+            print("close todo list view controller")
+        }
+    }
+}
+
 // MARK: - I/O
 
 extension MainViewController {

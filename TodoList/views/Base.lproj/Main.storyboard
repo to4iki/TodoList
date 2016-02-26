@@ -55,7 +55,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="List"/>
                                 <connections>
-                                    <segue destination="Kf3-g8-oKP" kind="push" id="6DU-nm-zdQ"/>
+                                    <segue destination="Kf3-g8-oKP" kind="presentation" identifier="TodoListSegue" id="6DU-nm-zdQ"/>
                                 </connections>
                             </button>
                         </barButtonItem>
