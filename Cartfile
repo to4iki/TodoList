@@ -1,1 +1,2 @@
 github "realm/realm-cocoa"
+github "yoavlt/LiquidFloatingActionButton" "swift-2.0"

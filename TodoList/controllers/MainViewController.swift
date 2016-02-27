@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import LiquidFloatingActionButton
 
 /// Todo Create
 final class MainViewController: UIViewController {
@@ -18,10 +19,15 @@ final class MainViewController: UIViewController {
         }
     }
     
+//    private var menuButton: LiquidFloatingActionButton?
+    
+    private let dataSource = MenuButtonDataSource()
+    
     private lazy var todoRepository = TodoRepository.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
     }
     
     @IBAction func onAddButton(sender: UIButton) {
@@ -38,12 +44,37 @@ final class MainViewController: UIViewController {
 
 extension MainViewController {
     
+    private func setup() {
+        let createButton: (CGRect, LiquidFloatingActionButtonAnimateStyle) -> LiquidFloatingActionButton = { (frame, style) in
+            let floatingActionButton = LiquidFloatingActionButton(frame: frame)
+            floatingActionButton.animateStyle = style
+            floatingActionButton.dataSource = self.dataSource
+            floatingActionButton.delegate = self
+            return floatingActionButton
+        }
+        
+        let floatingFrame = CGRect(x: view.frame.width - 56 - 16, y: view.frame.height - 56 - 16, width: 56, height: 56)
+        let bottomRightButton = createButton(floatingFrame, .Up)
+        
+        view.addSubview(bottomRightButton)
+    }
+    
     private func autoFocus() {
         textView.becomeFirstResponder()
     }
     
     private func clearTextView() {
         textView.text = ""
+    }
+}
+
+// MARK: - LiquidFloatingActionButtonDelegate
+
+extension MainViewController: LiquidFloatingActionButtonDelegate {
+    
+    func liquidFloatingActionButton(liquidFloatingActionButton: LiquidFloatingActionButton, didSelectItemAtIndex index: Int) {
+        print("did Tapped \(index)")
+        liquidFloatingActionButton.close()
     }
 }
 
@@ -55,9 +86,10 @@ extension MainViewController {
         guard let todoListViewController = segue.destinationViewController.childViewControllers.first as? TodoListViewController
             where segue.identifier == "TodoListSegue" else { fatalError() }
         
-        todoListViewController.closeCompletionHandler = {
+        todoListViewController.setCloseCompletionHandler({
             print("close todo list view controller")
-        }
+            self.autoFocus()
+        })
     }
 }
 

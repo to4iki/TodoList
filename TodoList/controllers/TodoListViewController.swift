@@ -14,11 +14,11 @@ final class TodoListViewController: UIViewController {
     
     @IBOutlet var tableView: UITableView!
     
-    var closeCompletionHandler: (() -> Void)?
+    private var closeCompletionHandler: (() -> Void)?
     
     private var todos: Results<Todo>?
     
-    private lazy var viewModel = TodoDataSource()
+    private lazy var dataSource = TodoDataSource()
     
     private lazy var todoRepository = TodoRepository.sharedInstance
     
@@ -36,7 +36,7 @@ extension TodoListViewController {
         tableView.registerNib(TodoTableViewCell.nib(), forCellReuseIdentifier: TodoTableViewCell.CellIdentifier)
         
         tableView.delegate = self
-        tableView.dataSource = viewModel
+        tableView.dataSource = dataSource
         
         configureDynamicCellSizing()
         hideSeparator()
@@ -55,6 +55,10 @@ extension TodoListViewController {
         tableView.tableFooterView = view
     }
     
+    func setCloseCompletionHandler(handler: () -> Void) {
+        closeCompletionHandler = handler
+    }
+    
     @IBAction func onCloseButton(sender: UIButton) {
         dismissViewControllerAnimated(true, completion: closeCompletionHandler)
     }
@@ -66,7 +70,7 @@ extension TodoListViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let deleteAction = UITableViewRowAction(style: .Default, title: "Delete", handler: { (action, indexPath) -> Void in
-            self.viewModel.removeData(indexPath.row)
+            self.dataSource.removeData(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Left)
             
             guard let todo = self.todos?[indexPath.row] else { return }
@@ -83,7 +87,7 @@ extension TodoListViewController {
     
     private func loadTodos() {
         todos = todoRepository.read()
-        viewModel.setup(todos)
+        dataSource.setup(todos)
     }
     
     private func deleteTodo(todo: Todo) {
