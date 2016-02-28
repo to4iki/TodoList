@@ -19,8 +19,6 @@ final class MainViewController: UIViewController {
         }
     }
     
-//    private var menuButton: LiquidFloatingActionButton?
-    
     private let dataSource = MenuButtonDataSource()
     
     private lazy var todoRepository = TodoRepository.sharedInstance
@@ -66,6 +64,18 @@ extension MainViewController {
     private func clearTextView() {
         textView.text = ""
     }
+    
+    private func openPhotoLibrary() {
+        guard UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) else { return }
+        
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .PhotoLibrary
+        imagePickerController.allowsEditing = true
+        imagePickerController.delegate = self
+        presentViewController(imagePickerController, animated: true, completion: {
+            print("present image picker controller")
+        })
+    }
 }
 
 // MARK: - LiquidFloatingActionButtonDelegate
@@ -74,7 +84,25 @@ extension MainViewController: LiquidFloatingActionButtonDelegate {
     
     func liquidFloatingActionButton(liquidFloatingActionButton: LiquidFloatingActionButton, didSelectItemAtIndex index: Int) {
         print("did Tapped \(index)")
+        
+        openPhotoLibrary()
         liquidFloatingActionButton.close()
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate, UINavigationControllerDelegate
+
+extension MainViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+        if let editingInfo = editingInfo, let editedImage = editingInfo[UIImagePickerControllerOriginalImage] as? UIImage {
+            // TODO: save
+            print(editedImage)
+        }
+        
+        picker.dismissViewControllerAnimated(true, completion: {
+            print("dismiss image picker controller")
+        })
     }
 }
 
