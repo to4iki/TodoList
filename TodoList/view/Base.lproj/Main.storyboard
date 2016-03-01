@@ -71,6 +71,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="Tbc-Lg-8CJ" id="vcY-Uz-DbS"/>
                         <outlet property="textView" destination="Ewj-Ao-fa5" id="44h-tm-V55"/>
                     </connections>
                 </viewController>

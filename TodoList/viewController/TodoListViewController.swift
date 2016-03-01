@@ -21,12 +21,17 @@ final class TodoListViewController: UIViewController {
     private lazy var dataSource = TodoDataSource()
     
     private lazy var todoRepository = TodoRepository.sharedInstance
+}
+
+// MARK: - LifeCycle
+
+extension TodoListViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadTodos()
         setup()
+        loadTodos()
     }
 }
 
